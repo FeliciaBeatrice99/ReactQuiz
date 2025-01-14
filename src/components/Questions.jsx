@@ -7,6 +7,13 @@ export default function Questions({onNull, onSelect, questionIndex}) {
     selectedAnswer: '',
     isCorrect: null
   })
+  let timeout = 10000;
+if(answer.selectedAnswer) {
+  timeout = 1000; 
+}
+if (answer.isCorrect !== null ){
+  timeout = 2000
+}
 
   function handleSelectAnswer(answer) {
     setAnswer({
@@ -33,7 +40,7 @@ export default function Questions({onNull, onSelect, questionIndex}) {
   console.log(answerState)
   
     return <div id="question">
-        <Progress timeOut={10000} onTimeout={onNull}/>
+        <Progress timeOut={timeout} onTimeout={answerState === "" ? onNull : null} key={timeout}/>
         <h2>{QUESTIONS[questionIndex].text}</h2>
         <Answer answer={QUESTIONS[questionIndex].answers} answerState={answerState} userAnswer={answer.selectedAnswer} onSelect={handleSelectAnswer}/>
   </div>
